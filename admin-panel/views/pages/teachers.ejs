@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>শিক্ষকবৃন্দ</h4>
+    <a href="/admin/teachers/add" class="btn btn-primary"><i class="bi bi-plus-lg"></i> নতুন শিক্ষক</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="GET" action="/admin/teachers" class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">বিভাগ অনুযায়ী ফিল্টার</label>
+                <select name="dept" class="form-select">
+                    <option value="">সকল বিভাগ</option>
+                    <% departments.forEach(d => { %>
+                    <option value="<%= d.id %>" <%= deptFilter === d.id ? 'selected' : '' %>><%= d.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-primary">ফিল্টার</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr><th>ক্রম</th><th>ছবি</th><th>নাম</th><th>পদবী</th><th>ফোন</th><th>অ্যাকশন</th></tr>
+            </thead>
+            <tbody>
+                <% teachers.forEach(t => { %>
+                <tr>
+                    <td><%= t.serial %></td>
+                    <td>
+                        <% if (t.photoUrl) { %>
+                        <img src="<%= t.photoUrl %>" width="40" height="40" class="rounded-circle" style="object-fit:cover">
+                        <% } else { %>
+                        <span class="badge bg-secondary">N/A</span>
+                        <% } %>
+                    </td>
+                    <td><%= t.name %><% if (t.nameEn) { %><br><small class="text-muted"><%= t.nameEn %></small><% } %></td>
+                    <td><%= t.designation || '' %></td>
+                    <td><%= t.phone || '' %></td>
+                    <td>
+                        <a href="/admin/teachers/edit/<%= t.id %>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                        <form method="POST" action="/admin/teachers/delete/<%= t.id %>" style="display:inline" onsubmit="return confirm('মুছে ফেলতে চান?')">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+                <% if (teachers.length === 0) { %>
+                <tr><td colspan="6" class="text-center text-muted">কোনো শিক্ষক নেই</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>

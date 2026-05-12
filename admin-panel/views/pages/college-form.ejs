@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><h5><%= item ? 'সম্পাদনা' : 'নতুন তথ্য যোগ' %></h5></div>
+            <div class="card-body">
+                <form method="POST" action="<%= item ? '/admin/college/edit/' + item.id : '/admin/college/add' %>" enctype="multipart/form-data">
+                    <% if (!item) { %>
+                    <div class="mb-3">
+                        <label class="form-label">আইডি (ইউনিক)</label>
+                        <input type="text" name="id" class="form-control" required>
+                    </div>
+                    <% } %>
+                    <div class="mb-3">
+                        <label class="form-label">শিরোনাম</label>
+                        <input type="text" name="title" class="form-control" value="<%= item ? item.title : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">বিষয়বস্তু</label>
+                        <textarea name="content" class="form-control" rows="6"><%= item ? item.content || '' : '' %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ধরন</label>
+                        <select name="type" class="form-select">
+                            <option value="article" <%= item && item.type === 'article' ? 'selected' : '' %>>আর্টিকেল</option>
+                            <option value="info" <%= item && item.type === 'info' ? 'selected' : '' %>>তথ্য</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ছবি আপলোড</label>
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                        <% if (item && item.imageUrl) { %>
+                            <small class="text-muted">বর্তমান: <%= item.imageUrl %></small>
+                        <% } %>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">অথবা ছবির URL</label>
+                        <input type="text" name="imageUrl" class="form-control" value="<%= item ? item.imageUrl || '' : '' %>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ক্রম</label>
+                        <input type="number" name="sortOrder" class="form-control" value="<%= item ? item.sortOrder : 0 %>">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> সংরক্ষণ</button>
+                    <a href="/admin/college" class="btn btn-secondary">বাতিল</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

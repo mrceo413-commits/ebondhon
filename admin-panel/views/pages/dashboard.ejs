@@ -1,0 +1,48 @@
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h2><%= teacherCount %></h2>
+                <p class="mb-0">শিক্ষকবৃন্দ</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h2><%= deptCount %></h2>
+                <p class="mb-0">বিভাগ</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <h2><%= photoCount %></h2>
+                <p class="mb-0">ফটো</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center">
+                <h2><%= collegeCount %></h2>
+                <p class="mb-0">কলেজ তথ্য</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+            <h5 class="mb-0">অ্যাপ ভার্সন: <span class="badge bg-primary fs-5"><%= version %></span></h5>
+            <small class="text-muted">ভার্সন বাম্প করলে মোবাইল অ্যাপ নতুন ডেটা ডাউনলোড করবে</small>
+        </div>
+        <form method="POST" action="/admin/version/bump" style="display:inline">
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="bi bi-arrow-up-circle"></i> ভার্সন আপডেট
+            </button>
+        </form>
+    </div>
+</div>
