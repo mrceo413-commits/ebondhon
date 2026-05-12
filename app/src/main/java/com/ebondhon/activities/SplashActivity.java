@@ -80,9 +80,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void navigateToMainAfterDelay() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if (!isFinishing() && !isDestroyed()) {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }, SPLASH_DELAY);
     }
 }

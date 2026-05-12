@@ -96,8 +96,9 @@ public class ContactActivity extends AppCompatActivity {
 
         if (appData != null && appData.contact != null && appData.contact.importantLinks != null) {
             for (ContactInfo.ImportantLink link : appData.contact.importantLinks) {
+                if (link.url == null || link.url.isEmpty()) continue;
                 String color = link.color != null ? link.color : "#1A237E";
-                addContactRow(linksContainer, link.title, link.url, color, link.url);
+                addContactRow(linksContainer, link.title != null ? link.title : "", link.url, color, link.url);
             }
         } else {
             addContactRow(linksContainer, "শিক্ষা মন্ত্রণালয়",
