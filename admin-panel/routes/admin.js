@@ -21,8 +21,8 @@ const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 // Helper: bump version
 async function bumpVersion() {
     const [ver] = await AppVersion.findOrCreate({ where: {}, defaults: { version: 1 } });
-    ver.version += 1;
-    await ver.save();
+    await ver.increment('version');
+    await ver.reload();
     return ver.version;
 }
 
