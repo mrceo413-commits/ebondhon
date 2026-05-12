@@ -21,12 +21,12 @@ router.get('/data', async (req, res) => {
     try {
         const college = await CollegeItem.findAll({ order: [['sortOrder', 'ASC']] });
         const faculties = await Faculty.findAll({
-            include: [{ model: Department, as: 'departments', order: [['sortOrder', 'ASC']] }],
-            order: [['sortOrder', 'ASC']],
+            include: [{ model: Department, as: 'departments' }],
+            order: [['sortOrder', 'ASC'], [{ model: Department, as: 'departments' }, 'sortOrder', 'ASC']],
         });
         const councils = await Council.findAll({
-            include: [{ model: CouncilMember, as: 'members', order: [['sortOrder', 'ASC']] }],
-            order: [['sortOrder', 'ASC']],
+            include: [{ model: CouncilMember, as: 'members' }],
+            order: [['sortOrder', 'ASC'], [{ model: CouncilMember, as: 'members' }, 'sortOrder', 'ASC']],
         });
         const teachers = await Teacher.findAll({ where: { isPrl: false }, order: [['serial', 'ASC']] });
         const prl = await PrlYear.findAll({ order: [['sortOrder', 'ASC']] });
@@ -68,7 +68,7 @@ router.get('/departments', async (req, res) => {
     try {
         const faculties = await Faculty.findAll({
             include: [{ model: Department, as: 'departments' }],
-            order: [['sortOrder', 'ASC']],
+            order: [['sortOrder', 'ASC'], [{ model: Department, as: 'departments' }, 'sortOrder', 'ASC']],
         });
         res.json(faculties);
     } catch (err) {
@@ -94,7 +94,7 @@ router.get('/council', async (req, res) => {
     try {
         const councils = await Council.findAll({
             include: [{ model: CouncilMember, as: 'members' }],
-            order: [['sortOrder', 'ASC']],
+            order: [['sortOrder', 'ASC'], [{ model: CouncilMember, as: 'members' }, 'sortOrder', 'ASC']],
         });
         res.json(councils);
     } catch (err) {

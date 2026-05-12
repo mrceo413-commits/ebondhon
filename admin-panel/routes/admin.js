@@ -102,7 +102,7 @@ router.post('/college/delete/:id', async (req, res) => {
 router.get('/faculties', async (req, res) => {
     const faculties = await Faculty.findAll({
         include: [{ model: Department, as: 'departments' }],
-        order: [['sortOrder', 'ASC']],
+        order: [['sortOrder', 'ASC'], [{ model: Department, as: 'departments' }, 'sortOrder', 'ASC']],
     });
     res.render('pages/faculties', { title: 'অনুষদ ও বিভাগ', active: 'faculties', faculties });
 });
@@ -242,7 +242,7 @@ router.post('/teachers/delete/:id', async (req, res) => {
 router.get('/councils', async (req, res) => {
     const councils = await Council.findAll({
         include: [{ model: CouncilMember, as: 'members' }],
-        order: [['sortOrder', 'ASC']],
+        order: [['sortOrder', 'ASC'], [{ model: CouncilMember, as: 'members' }, 'sortOrder', 'ASC']],
     });
     res.render('pages/councils', { title: 'পরিষদ', active: 'councils', councils });
 });
