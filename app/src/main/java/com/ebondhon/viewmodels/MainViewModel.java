@@ -56,12 +56,12 @@ public class MainViewModel extends AndroidViewModel {
 
             @Override
             public void onUpToDate() {
-                loadCachedData();
+                loadCachedData(false);
             }
 
             @Override
             public void onError(String message) {
-                loadCachedData();
+                loadCachedData(true);
             }
         });
     }
@@ -80,25 +80,25 @@ public class MainViewModel extends AndroidViewModel {
                     CacheManager.saveData(getApplication(), json);
                     VersionChecker.setCachedVersion(getApplication(), newVersion);
                 } else {
-                    loadCachedData();
+                    loadCachedData(true);
                 }
             }
 
             @Override
             public void onFailure(Call<AppData> call, Throwable t) {
                 isLoading.postValue(false);
-                loadCachedData();
+                loadCachedData(true);
             }
         });
     }
 
-    private void loadCachedData() {
+    private void loadCachedData(boolean offline) {
         String json = CacheManager.loadData(getApplication());
         if (json != null) {
             AppData data = CacheManager.parseData(json);
             if (data != null) {
                 appData.postValue(data);
-                isOffline.postValue(true);
+                isOffline.postValue(offline);
                 isLoading.postValue(false);
                 return;
             }

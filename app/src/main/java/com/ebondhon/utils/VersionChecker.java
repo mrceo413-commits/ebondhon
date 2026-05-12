@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ebondhon.network.RetrofitClient;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -26,7 +27,12 @@ public class VersionChecker {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    int serverVersion = response.body().get("version").getAsInt();
+                    JsonElement versionElement = response.body().get("version");
+                    if (versionElement == null) {
+                        callback.onError("Invalid version response");
+                        return;
+                    }
+                    int serverVersion = versionElement.getAsInt();
                     int cachedVersion = getCachedVersion(context);
 
                     if (serverVersion > cachedVersion) {
