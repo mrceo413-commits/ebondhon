@@ -27,18 +27,22 @@ public class VersionChecker {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    JsonElement versionElement = response.body().get("version");
-                    if (versionElement == null) {
-                        callback.onError("Invalid version response");
-                        return;
-                    }
-                    int serverVersion = versionElement.getAsInt();
-                    int cachedVersion = getCachedVersion(context);
+                    try {
+                        JsonElement versionElement = response.body().get("version");
+                        if (versionElement == null || versionElement.isJsonNull()) {
+                            callback.onError("Invalid version response");
+                            return;
+                        }
+                        int serverVersion = versionElement.getAsInt();
+                        int cachedVersion = getCachedVersion(context);
 
-                    if (serverVersion > cachedVersion) {
-                        callback.onNewVersionAvailable(serverVersion);
-                    } else {
-                        callback.onUpToDate();
+                        if (serverVersion > cachedVersion) {
+                            callback.onNewVersionAvailable(serverVersion);
+                        } else {
+                            callback.onUpToDate();
+                        }
+                    } catch (Exception e) {
+                        callback.onError("Invalid version format");
                     }
                 } else {
                     callback.onError("সার্ভার থেকে তথ্য পাওয়া যায়নি");
