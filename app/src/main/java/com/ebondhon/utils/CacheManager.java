@@ -19,11 +19,10 @@ public class CacheManager {
     public static void saveData(Context ctx, String json) {
         try {
             File file = new File(ctx.getFilesDir(), FILE_NAME);
-            FileOutputStream fos = new FileOutputStream(file);
-            OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8");
-            writer.write(json);
-            writer.close();
-            fos.close();
+            try (FileOutputStream fos = new FileOutputStream(file);
+                 OutputStreamWriter writer = new OutputStreamWriter(fos, "UTF-8")) {
+                writer.write(json);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,16 +34,15 @@ public class CacheManager {
             if (!file.exists()) {
                 return null;
             }
-            FileInputStream fis = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            try (FileInputStream fis = new FileInputStream(file);
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis, "UTF-8"))) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                return sb.toString();
             }
-            reader.close();
-            fis.close();
-            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
