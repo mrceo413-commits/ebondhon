@@ -4,7 +4,8 @@ College Information Android App — similar to "E-Bondhon" (ই-বন্ধন)
 
 ## Tech Stack
 
-- **Mobile App**: Native Android — Java (minimum SDK 21, target SDK 34)
+### Mobile App
+- **Platform**: Native Android — Java (minimum SDK 21, target SDK 34)
 - **Architecture**: MVVM (ViewModel + LiveData)
 - **Networking**: Retrofit2 + OkHttp3
 - **Image Loading**: Glide
@@ -12,6 +13,13 @@ College Information Android App — similar to "E-Bondhon" (ই-বন্ধন)
 - **UI Components**: Material Design 3 (AndroidX)
 - **Bengali Font**: Hind Siliguri
 - **Navigation**: Intent-based with Activity + Fragment
+
+### Admin Panel
+- **Backend**: Node.js + Express
+- **Database**: SQLite (via Sequelize ORM)
+- **Admin UI**: EJS + Bootstrap 5
+- **File Uploads**: Multer
+- **Auth**: Session-based with configurable credentials
 
 ## Features
 
@@ -27,9 +35,20 @@ College Information Android App — similar to "E-Bondhon" (ই-বন্ধন)
 
 ## Building
 
+### Android App
 1. Open the project in Android Studio
 2. Sync Gradle
 3. Build and run on an emulator or device (API 21+)
+
+### Admin Panel
+```bash
+cd admin-panel
+cp .env.example .env    # Edit credentials as needed
+npm install
+npm run seed            # Populate sample data
+npm start               # Runs on http://localhost:3000
+```
+Default login: `admin` / `admin123` (configurable in `.env`)
 
 ## API Endpoints
 
@@ -57,4 +76,14 @@ app/src/main/java/com/ebondhon/
 ├── network/           # Retrofit API service & client
 ├── utils/             # Cache, version check, font utilities
 └── viewmodels/        # MVVM ViewModels
+
+admin-panel/
+├── server.js          # Main Express server
+├── seed.js            # Database seed script
+├── config/            # Database configuration
+├── models/            # Sequelize models (12 models)
+├── routes/            # API + admin + auth routes
+├── views/             # EJS templates (layout, pages, partials)
+├── public/            # CSS, JS, uploads
+└── .env.example       # Environment config template
 ```

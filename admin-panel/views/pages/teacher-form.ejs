@@ -1,0 +1,119 @@
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header"><h5><%= teacher ? 'শিক্ষক সম্পাদনা' : 'নতুন শিক্ষক যোগ' %></h5></div>
+            <div class="card-body">
+                <form method="POST" action="<%= teacher ? '/admin/teachers/edit/' + teacher.id : '/admin/teachers/add' %>" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">নাম (বাংলা) *</label>
+                            <input type="text" name="name" class="form-control" value="<%= teacher ? teacher.name : '' %>" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">নাম (ইংরেজি)</label>
+                            <input type="text" name="nameEn" class="form-control" value="<%= teacher ? teacher.nameEn || '' : '' %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">ক্রম নং</label>
+                            <input type="number" name="serial" class="form-control" value="<%= teacher ? teacher.serial : 0 %>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">আইডি নং</label>
+                            <input type="text" name="idNo" class="form-control" value="<%= teacher ? teacher.idNo || '' : '' %>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">পদবী</label>
+                            <input type="text" name="designation" class="form-control" value="<%= teacher ? teacher.designation || '' : '' %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">বিভাগ</label>
+                            <select name="departmentId" class="form-select">
+                                <option value="">-- নির্বাচন --</option>
+                                <% departments.forEach(d => { %>
+                                <option value="<%= d.id %>" <%= teacher && teacher.departmentId === d.id ? 'selected' : '' %>><%= d.name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">জন্ম তারিখ</label>
+                            <input type="text" name="birthDate" class="form-control" value="<%= teacher ? teacher.birthDate || '' : '' %>" placeholder="DD/MM/YYYY">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">রক্তের গ্রুপ</label>
+                            <input type="text" name="bloodGroup" class="form-control" value="<%= teacher ? teacher.bloodGroup || '' : '' %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">সরকারি চাকুরিতে যোগদান</label>
+                            <input type="text" name="govtJoining" class="form-control" value="<%= teacher ? teacher.govtJoining || '' : '' %>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">অত্র কলেজে যোগদান</label>
+                            <input type="text" name="thisCollegeJoining" class="form-control" value="<%= teacher ? teacher.thisCollegeJoining || '' : '' %>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">বর্তমান পদে যোগদান</label>
+                            <input type="text" name="thisDesignationJoining" class="form-control" value="<%= teacher ? teacher.thisDesignationJoining || '' : '' %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">বর্তমান ঠিকানা</label>
+                            <textarea name="addressCurrent" class="form-control" rows="2"><%= teacher ? teacher.addressCurrent || '' : '' %></textarea>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">স্থায়ী ঠিকানা</label>
+                            <textarea name="addressPermanent" class="form-control" rows="2"><%= teacher ? teacher.addressPermanent || '' : '' %></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">ফোন</label>
+                            <input type="text" name="phone" class="form-control" value="<%= teacher ? teacher.phone || '' : '' %>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">ইমেইল</label>
+                            <input type="email" name="email" class="form-control" value="<%= teacher ? teacher.email || '' : '' %>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">ফেসবুক লিংক</label>
+                            <input type="text" name="facebookLink" class="form-control" value="<%= teacher ? teacher.facebookLink || '' : '' %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">ছবি আপলোড</label>
+                            <input type="file" name="photo" class="form-control" accept="image/*">
+                            <% if (teacher && teacher.photoUrl) { %>
+                                <small class="text-muted">বর্তমান: <%= teacher.photoUrl %></small>
+                            <% } %>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">অথবা ছবির URL</label>
+                            <input type="text" name="photoUrl" class="form-control" value="<%= teacher ? teacher.photoUrl || '' : '' %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check mt-4">
+                                <input type="checkbox" name="isPrl" class="form-check-input" id="isPrl" <%= teacher && teacher.isPrl ? 'checked' : '' %>>
+                                <label class="form-check-label" for="isPrl">পি.আর.এল</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">পি.আর.এল সাল</label>
+                            <input type="text" name="prlYear" class="form-control" value="<%= teacher ? teacher.prlYear || '' : '' %>" placeholder="e.g. 2024">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> সংরক্ষণ</button>
+                    <a href="/admin/teachers" class="btn btn-secondary">বাতিল</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{
+  "name": "ebondhon-admin",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ebondhon",
+    "college",
+    "admin"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "E-Bondhon Admin Panel — College Information Management",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.1.1",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
+  }
+}

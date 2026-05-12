@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>পরিষদ</h4>
+    <a href="/admin/councils/add" class="btn btn-primary"><i class="bi bi-plus-lg"></i> নতুন পরিষদ</a>
+</div>
+<% councils.forEach(council => { %>
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><%= council.name %></h5>
+        <div>
+            <a href="/admin/council-members/add/<%= council.id %>" class="btn btn-sm btn-success"><i class="bi bi-plus"></i> সদস্য</a>
+            <a href="/admin/councils/edit/<%= council.id %>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+            <form method="POST" action="/admin/councils/delete/<%= council.id %>" style="display:inline" onsubmit="return confirm('এই পরিষদ ও সকল সদস্য মুছে যাবে।')">
+                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+    </div>
+    <% if (council.members && council.members.length > 0) { %>
+    <div class="table-responsive">
+        <table class="table table-sm mb-0">
+            <thead><tr><th>নাম</th><th>পদবী</th><th>অ্যাকশন</th></tr></thead>
+            <tbody>
+                <% council.members.forEach(m => { %>
+                <tr>
+                    <td><%= m.name %></td>
+                    <td><%= m.designation || '' %></td>
+                    <td>
+                        <form method="POST" action="/admin/council-members/delete/<%= m.id %>" style="display:inline" onsubmit="return confirm('মুছে ফেলতে চান?')">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <% } else { %>
+    <div class="card-body text-muted">কোনো সদস্য নেই</div>
+    <% } %>
+</div>
+<% }) %>
+<% if (councils.length === 0) { %>
+<div class="alert alert-info">কোনো পরিষদ নেই।</div>
+<% } %>

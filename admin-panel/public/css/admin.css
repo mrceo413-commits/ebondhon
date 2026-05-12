@@ -1,0 +1,68 @@
+* {
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #f4f6f9;
+}
+
+#wrapper {
+    min-height: 100vh;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    transition: margin 0.25s ease-out;
+}
+
+.active-nav {
+    background-color: #2196F3 !important;
+    border-left: 4px solid #fff;
+    font-weight: 600;
+}
+
+.list-group-item {
+    border: none;
+    padding: 12px 20px;
+    transition: all 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: #343a40 !important;
+}
+
+.list-group-item i {
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.table th {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #2196F3;
+    border-color: #2196F3;
+}
+
+.btn-primary:hover {
+    background-color: #1976D2;
+    border-color: #1976D2;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

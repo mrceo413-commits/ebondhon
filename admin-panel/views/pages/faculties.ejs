@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>অনুষদ ও বিভাগ</h4>
+    <a href="/admin/faculties/add" class="btn btn-primary"><i class="bi bi-plus-lg"></i> নতুন অনুষদ</a>
+</div>
+<% faculties.forEach(faculty => { %>
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-diagram-3"></i> <%= faculty.name %></h5>
+        <div>
+            <a href="/admin/departments/add/<%= faculty.id %>" class="btn btn-sm btn-success"><i class="bi bi-plus"></i> বিভাগ</a>
+            <a href="/admin/faculties/edit/<%= faculty.id %>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+            <form method="POST" action="/admin/faculties/delete/<%= faculty.id %>" style="display:inline" onsubmit="return confirm('এই অনুষদ ও এর সকল বিভাগ মুছে যাবে। এগিয়ে যেতে চান?')">
+                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+    </div>
+    <% if (faculty.departments && faculty.departments.length > 0) { %>
+    <ul class="list-group list-group-flush">
+        <% faculty.departments.forEach(dept => { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span><%= dept.name %> <% if (dept.nameEn) { %><small class="text-muted">(<%= dept.nameEn %>)</small><% } %></span>
+            <div>
+                <a href="/admin/departments/edit/<%= dept.id %>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                <form method="POST" action="/admin/departments/delete/<%= dept.id %>" style="display:inline" onsubmit="return confirm('মুছে ফেলতে চান?')">
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </form>
+            </div>
+        </li>
+        <% }) %>
+    </ul>
+    <% } else { %>
+    <div class="card-body text-muted">কোনো বিভাগ নেই</div>
+    <% } %>
+</div>
+<% }) %>
+<% if (faculties.length === 0) { %>
+<div class="alert alert-info">কোনো অনুষদ নেই। উপরে "নতুন অনুষদ" বাটনে ক্লিক করুন।</div>
+<% } %>

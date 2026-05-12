@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><h5>নতুন সদস্য — <%= council ? council.name : '' %></h5></div>
+            <div class="card-body">
+                <form method="POST" action="/admin/council-members/add" enctype="multipart/form-data">
+                    <input type="hidden" name="councilId" value="<%= council ? council.id : '' %>">
+                    <div class="mb-3">
+                        <label class="form-label">নাম *</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">পদবী</label>
+                        <input type="text" name="designation" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ছবি</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ক্রম</label>
+                        <input type="number" name="sortOrder" class="form-control" value="0">
+                    </div>
+                    <button type="submit" class="btn btn-primary">সংরক্ষণ</button>
+                    <a href="/admin/councils" class="btn btn-secondary">বাতিল</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><h5><%= faculty ? 'অনুষদ সম্পাদনা' : 'নতুন অনুষদ' %></h5></div>
+            <div class="card-body">
+                <form method="POST" action="<%= faculty ? '/admin/faculties/edit/' + faculty.id : '/admin/faculties/add' %>">
+                    <% if (!faculty) { %>
+                    <div class="mb-3">
+                        <label class="form-label">আইডি (ইউনিক)</label>
+                        <input type="text" name="id" class="form-control" required>
+                    </div>
+                    <% } %>
+                    <div class="mb-3">
+                        <label class="form-label">অনুষদের নাম (বাংলা)</label>
+                        <input type="text" name="name" class="form-control" value="<%= faculty ? faculty.name : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ক্রম</label>
+                        <input type="number" name="sortOrder" class="form-control" value="<%= faculty ? faculty.sortOrder : 0 %>">
+                    </div>
+                    <button type="submit" class="btn btn-primary">সংরক্ষণ</button>
+                    <a href="/admin/faculties" class="btn btn-secondary">বাতিল</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
