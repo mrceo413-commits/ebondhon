@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ই-বন্ধন</string>
+    <string name="bondhon">বন্ধন</string>
+    <string name="college_name_bn">কুমিল্লা ভিক্টোরিয়া সরকারি কলেজ</string>
+    <string name="college_location">কুমিল্লা</string>
+    <string name="college_full">কুমিল্লা ভিক্টোরিয়া সরকারি কলেজ, কুমিল্লা</string>
+    <string name="offline_mode">অফলাইন মোড</string>
+    <string name="loading">লোড হচ্ছে…</string>
+    <string name="no_data">কোনো তথ্য পাওয়া যায়নি</string>
+    <string name="contact_us">আমাদের সাথে যোগাযোগ করুন</string>
+    <string name="important_links">গুরুত্বপূর্ণ লিংক</string>
+    <string name="prl_title">পি.আর.এল</string>
+    <string name="photo_gallery">ফটো গ্যালারি</string>
+    <string name="call">কল</string>
+    <string name="email">ইমেইল</string>
+    <string name="facebook">ফেসবুক</string>
+
+    <!-- Teacher detail labels -->
+    <string name="label_id">আইডি নং</string>
+    <string name="label_this_college_joining">অত্র কলেজে যোগদান</string>
+    <string name="label_govt_joining">সরকারি চাকুরিতে যোগদান</string>
+    <string name="label_current_designation_joining">বর্তমান পদে যোগদান</string>
+    <string name="label_birth_date">জন্ম তারিখ</string>
+    <string name="label_blood_group">রক্তের গ্রুপ</string>
+    <string name="label_current_address">বর্তমান ঠিকানা</string>
+    <string name="label_permanent_address">স্থায়ী ঠিকানা</string>
+
+    <!-- Menu items -->
+    <string name="menu_college">কলেজ</string>
+    <string name="menu_others">অন্যান্য</string>
+    <string name="menu_council">পরিষদ</string>
+    <string name="menu_phones">গুরুত্বপূর্ণ টেলিফোন নাম্বার</string>
+    <string name="menu_faculty">অনুষদ</string>
+    <string name="menu_gallery">ফটো গ্যালারি</string>
+    <string name="menu_prl">পি.আর.এল</string>
+    <string name="menu_contact">যোগাযোগ</string>
+
+    <!-- Contact info -->
+    <string name="website_label">ওয়েবসাইট</string>
+    <string name="facebook_label">ফেসবুক</string>
+    <string name="phone_label">ফোন</string>
+    <string name="email_label">ইমেইল</string>
+    <string name="website_url">https://www.cvgc.edu.bd</string>
+    <string name="facebook_url">https://www.facebook.com/cvgc.edu.bd</string>
+    <string name="phone_number">02334405988</string>
+    <string name="email_address">principal@cvgc.edu.bd</string>
+</resources>
