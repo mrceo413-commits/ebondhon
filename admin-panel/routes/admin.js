@@ -86,7 +86,7 @@ router.post('/college/edit/:id', upload.single('image'), async (req, res) => {
     item.type = type;
     item.sortOrder = parseInt(sortOrder) || 0;
     if (req.file) item.imageUrl = `/uploads/${req.file.filename}`;
-    else if (req.body.imageUrl) item.imageUrl = req.body.imageUrl;
+    else item.imageUrl = req.body.imageUrl || null;
     await item.save();
     await bumpVersion();
     res.redirect('/admin/college');
@@ -136,6 +136,8 @@ router.post('/faculties/edit/:id', async (req, res) => {
 });
 
 router.post('/faculties/delete/:id', async (req, res) => {
+    const deptIds = (await Department.findAll({ where: { facultyId: req.params.id }, attributes: ['id'] })).map(d => d.id);
+    if (deptIds.length > 0) await Teacher.destroy({ where: { departmentId: deptIds } });
     await Department.destroy({ where: { facultyId: req.params.id } });
     await Faculty.destroy({ where: { id: req.params.id } });
     await bumpVersion();
@@ -175,6 +177,7 @@ router.post('/departments/edit/:id', async (req, res) => {
 });
 
 router.post('/departments/delete/:id', async (req, res) => {
+    await Teacher.destroy({ where: { departmentId: req.params.id } });
     await Department.destroy({ where: { id: req.params.id } });
     await bumpVersion();
     res.redirect('/admin/faculties');
@@ -226,7 +229,7 @@ router.post('/teachers/edit/:id', upload.single('photo'), async (req, res) => {
     teacher.serial = parseInt(req.body.serial) || 0;
     teacher.isPrl = req.body.isPrl === 'on' || req.body.isPrl === 'true';
     if (req.file) teacher.photoUrl = `/uploads/${req.file.filename}`;
-    else if (req.body.photoUrl) teacher.photoUrl = req.body.photoUrl;
+    else teacher.photoUrl = req.body.photoUrl || null;
     await teacher.save();
     await bumpVersion();
     res.redirect('/admin/teachers');
