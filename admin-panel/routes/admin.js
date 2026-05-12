@@ -199,10 +199,17 @@ router.get('/teachers/add', async (req, res) => {
 });
 
 router.post('/teachers/add', upload.single('photo'), async (req, res) => {
-    const data = req.body;
-    data.photoUrl = req.file ? `/uploads/${req.file.filename}` : data.photoUrl || null;
-    data.serial = parseInt(data.serial) || 0;
-    data.isPrl = data.isPrl === 'on' || data.isPrl === 'true';
+    const fields = [
+        'idNo', 'name', 'nameEn', 'designation',
+        'govtJoining', 'thisCollegeJoining', 'thisDesignationJoining',
+        'birthDate', 'bloodGroup', 'addressCurrent', 'addressPermanent',
+        'phone', 'email', 'facebookLink', 'departmentId', 'prlYear',
+    ];
+    const data = {};
+    fields.forEach(f => { if (req.body[f] !== undefined) data[f] = req.body[f]; });
+    data.photoUrl = req.file ? `/uploads/${req.file.filename}` : req.body.photoUrl || null;
+    data.serial = parseInt(req.body.serial) || 0;
+    data.isPrl = req.body.isPrl === 'on' || req.body.isPrl === 'true';
     await Teacher.create(data);
     await bumpVersion();
     res.redirect('/admin/teachers');
