@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
+const adminPassHash = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'admin123', 10);
+
 router.get('/login', (req, res) => {
     if (req.session && req.session.isAdmin) {
         return res.redirect('/admin');
@@ -12,9 +14,8 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
     const adminUser = process.env.ADMIN_USERNAME || 'admin';
-    const adminPass = process.env.ADMIN_PASSWORD || 'admin123';
 
-    if (username === adminUser && password === adminPass) {
+    if (username === adminUser && bcrypt.compareSync(password, adminPassHash)) {
         req.session.isAdmin = true;
         return res.redirect('/admin');
     }

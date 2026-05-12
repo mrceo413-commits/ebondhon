@@ -35,17 +35,17 @@ router.get('/data', async (req, res) => {
         const importantLinks = await ImportantLink.findAll({ order: [['sortOrder', 'ASC']] });
         const phones = await PhoneItem.findAll({ order: [['sortOrder', 'ASC']] });
 
-        const contact = contactRow ? {
-            website: contactRow.website,
-            facebook: contactRow.facebook,
-            phone: contactRow.phone,
-            email: contactRow.email,
+        const contact = {
+            website: contactRow ? contactRow.website : null,
+            facebook: contactRow ? contactRow.facebook : null,
+            phone: contactRow ? contactRow.phone : null,
+            email: contactRow ? contactRow.email : null,
             importantLinks: importantLinks.map(l => ({
                 title: l.title,
                 url: l.url,
                 color: l.color,
             })),
-        } : null;
+        };
 
         res.json({ college, faculties, councils, teachers, prl, gallery, contact, phones });
     } catch (err) {
@@ -128,17 +128,17 @@ router.get('/contact', async (req, res) => {
         const contactRow = await ContactInfo.findOne();
         const importantLinks = await ImportantLink.findAll({ order: [['sortOrder', 'ASC']] });
 
-        const contact = contactRow ? {
-            website: contactRow.website,
-            facebook: contactRow.facebook,
-            phone: contactRow.phone,
-            email: contactRow.email,
+        const contact = {
+            website: contactRow ? contactRow.website : null,
+            facebook: contactRow ? contactRow.facebook : null,
+            phone: contactRow ? contactRow.phone : null,
+            email: contactRow ? contactRow.email : null,
             importantLinks: importantLinks.map(l => ({
                 title: l.title,
                 url: l.url,
                 color: l.color,
             })),
-        } : null;
+        };
 
         res.json(contact);
     } catch (err) {
